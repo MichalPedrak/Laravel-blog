@@ -13,7 +13,7 @@ class Post extends Model
 
     protected $with = ['category', 'author'];
 
-    public function scopeFilter($query, array $filters)
+    public function scopeFilter($query, array $filters) // musi byc scope Post::newQuery()->filter // 1 argument to query automatcznie a drugi to tablica z PostContoller tamgdzie filter
     {
         $query->when($filters['search'] ?? false, fn($query, $search) =>
             $query

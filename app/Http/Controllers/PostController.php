@@ -10,7 +10,7 @@ class PostController extends Controller
     public function index()
     {
         return view('posts', [
-            'posts' => Post::latest()->filter(request(['search']))->get(),
+            'posts' => Post::latest()->filter(request(['search']))->get(), // latest('published_at')->
             'categories' => Category::all()
         ]);
     }
@@ -21,4 +21,5 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
+
 }

@@ -15,12 +15,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::factory()->create([
-            'name' => 'John Doe'
-        ]);
 
-        Post::factory(5)->create([
-            'user_id' => $user->id
-        ]);
+        // Przed db:seed czyścimy tabelki
+        User::truncate();
+        Category::truncate();
+        Post::truncate();
+
+        Post::factory()->create();
+
+
+//        $user = User::factory()->create([
+//            'name' => 'John Doe'
+//        ]);
+//
+//        Post::factory(5)->create([  // tego używamy jak nie mamy factory - associate this post iwht created $user moment ago
+//            'user_id' => $user->id
+//        ]);
+
+        Post::factory()->create(5);
+
     }
 }
