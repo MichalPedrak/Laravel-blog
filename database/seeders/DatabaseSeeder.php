@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 //            'name' => 'John Doe'
 //        ]);
 //
-//        Post::factory(5)->create([  // tego używamy jak nie mamy factory - associate this post iwht created $user moment ago
+//        posts::factory(5)->create([  // tego używamy jak nie mamy factory - associate this post iwht created $user moment ago
 //            'user_id' => $user->id
 //        ]);
 
