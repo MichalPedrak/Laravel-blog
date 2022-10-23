@@ -28,6 +28,13 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+    public function setPasswordAttribute($password){ // za każdym razem jak do tego modelu jest set ,,Password,, to nam to robi - password to ta nazwa co wysyłana jest
+        $this->attributes['password'] = bcrypt($password);
+
+        // przypisuje nam do tego ten zahashowane hasło i wtedy dopiero
+    }
+
     /**
      * The attributes that should be cast to native types.
      *

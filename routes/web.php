@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -21,8 +22,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home'); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
-Route::get('register', [RegisterController::class, 'create']);
-Route::post('register', [RegisterController::class, 'store']);
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
+
+Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::get('login', [SessionController::class, 'create'])->middleware('guest');
+
+Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
+
 
 Route::get('categories/{category:slug}', function (Category $category) {
     return view('posts', [

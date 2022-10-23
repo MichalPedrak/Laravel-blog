@@ -27,13 +27,27 @@
                 </a>
             </div>
 
-            <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+                <div class="mt-8 md:mt-0">
+{{--                  // if(auth()->check())--}}
+{{--                    @auth() logged in>???--}}
+{{--                    @endauth--}}
+                    @auth()
+                        <p class="text-xs font-bold uppercase">Welcome back {{ auth()->user()->name }}</p>
+                        <form method="Post" action="/logout">
+                            @csrf
+                            <button>Log out</button>
+                        </form>
+                    @endauth
+                    @guest
+                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
+                    <a href="/login" class="text-xs font-bold uppercase">Login</a>
+                    @endguest
+                    <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                        Subscribe for Updates
+                    </a>
+                </div>
 
-                <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                    Subscribe for Updates
-                </a>
-            </div>
+
         </nav>
 
         {{ $slot }}
@@ -66,4 +80,12 @@
             </div>
         </footer>
     </section>
+@if(session()->has('success'))
+    <div>
+        <p>
+{{--            {{ $session->get('success') }}--}}
+            {{ session()->get('success') }}
+        </p>
+    </div>
+@endif
 </body>
