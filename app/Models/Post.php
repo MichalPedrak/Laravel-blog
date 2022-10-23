@@ -16,9 +16,11 @@ class Post extends Model
     public function scopeFilter($query, array $filters) // musi byc scope posts::newQuery()->filter // 1 argument to query automatcznie a drugi to tablica z PostContoller tamgdzie filter
     {
         $query->when($filters['search'] ?? false, fn($query, $search) =>
-            $query
-                ->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' . $search . '%'));
+            $query->where(fn ($query) =>
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('body', 'like', '%' . $search . '%')
+            ));
+
 
 
         $query->when($filters['category'] ?? false, fn($query, $category) =>
