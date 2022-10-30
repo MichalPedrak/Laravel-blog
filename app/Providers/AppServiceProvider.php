@@ -2,14 +2,16 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
+
      * @return void
      */
     public function register()
@@ -24,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      Paginator::useTailwind();
+        Model::unguard();
+        Paginator::useTailwind();
+        Schema::defaultStringLength(191);
     }
+
+
 }

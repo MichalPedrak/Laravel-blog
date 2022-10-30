@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -19,7 +20,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get("pink", function(){
+    $mailchimp = new \MailchimpMarketing\ApiClient();
+//dd( $mailchimp->setConfig()->root->getConfig()->root);
+//    $mailchimp->setConfig([
+//        'verify' =>false,
+//        'apiKey' => config('services.mailchimp.key'),
+//        'server' => 'us21'
+//    ]);
+
+    $response = $mailchimp->ping->get();
+    print_r($response);
+    run();
+});
+
 Route::get('/', [PostController::class, 'index'])->name('home'); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::get('admin/posts/create', [PostController::class, 'create']); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
@@ -30,6 +47,10 @@ Route::post('logout', [SessionController::class, 'destroy'])->middleware('auth')
 Route::get('login', [SessionController::class, 'create'])->middleware('guest');
 
 Route::post('sessions', [SessionController::class, 'store'])->middleware('guest');
+
+Route::post('posts/{post:slug}/comments', [CommentController::class, 'store']);
+
+
 
 
 Route::get('categories/{category:slug}', function (Category $category) {
