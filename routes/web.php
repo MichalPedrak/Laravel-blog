@@ -36,7 +36,7 @@ Route::get("pink", function(){
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home'); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
-Route::get('admin/posts/create', [PostController::class, 'create']); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
