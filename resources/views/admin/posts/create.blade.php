@@ -2,7 +2,7 @@
     <section class="px-6 py-8">
         <x-panel class="max-w-sm mx-auto">
 
-        <form method="POST" action="/admin/posts">
+        <form method="POST" action="/admin/posts" enctype='multipart/form-data'>
             @csrf
             <div class="mb-6">
                 <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
@@ -18,6 +18,38 @@
                     <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
                     @enderror
                 </label>
+
+                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
+                       for="thumbnail   "
+
+                       label> thumbnail
+                    <input class="border border-gray-400 p-2 w-full"
+                              type="file"
+                              name="thumbnail"
+                              id="thumbnail"
+                              value="{{ old('file') }}"
+                              required ></input>
+                    @error('thumbnail')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
+                </label>
+
+                <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
+                       for="slug"
+                       Title
+                       label> Slug
+                    <textarea class="border border-gray-400 p-2 w-full"
+                              type="text"
+                               name="slug"
+                              id="slug"
+                              value="{{ old('title') }}"
+                              required ></textarea>
+                    @error('slug')
+                    <p class="text-red-500 text-xs mt-2">{{ $message }}</p>
+                    @enderror
+                </label>
+
+
                 <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                        for="excerpt"
                        Title
@@ -50,7 +82,7 @@
             <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                    for="category"
                    > Category
-                <select name="category" id="category">
+                <select name="category_id" id="category">
                     @php
                         $categories = \App\Models\Category::all();
                     @endphp

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -24,20 +25,35 @@ use Illuminate\Support\Facades\Route;
 Route::get("pink", function(){
     $mailchimp = new \MailchimpMarketing\ApiClient();
 //dd( $mailchimp->setConfig()->root->getConfig()->root);
-//    $mailchimp->setConfig([
-//        'verify' =>false,
-//        'apiKey' => config('services.mailchimp.key'),
-//        'server' => 'us21'
-//    ]);
-
+    $mailchimp->setConfig([
+        'verify' =>false,
+        'apiKey' => config('services.mailchimp.key'),
+        'server' => 'us21'
+    ]);
+    phpinfo();
+    exit();
     $response = $mailchimp->ping->get();
     print_r($response);
     run();
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home'); // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
-Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+
+
+// Admin section
+Route::get('admin/posts/create', [AdminController::class, 'create'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::post('admin/posts/', [AdminController::class, 'store'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+
+Route::get('admin/posts/', [AdminController::class, 'index'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::get('admin/posts/{post}/edit', [AdminController::class, 'edit'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::patch('admin/posts/{post}', [AdminController::class, 'update'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+Route::delete('admin/posts/{post}', [AdminController::class, 'destroy'])->middleware('admin');; // Ładuj w posts controller action index - wszystko co wczesniej było tutaj
+
+
+
+
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
+
 
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');

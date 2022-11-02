@@ -81,7 +81,7 @@
         </footer>
     </section>
 @if(session()->has('success'))
-    <div>
+    <div class="bg-green-200 px-10 py-5 rounded-xl" style="position: fixed; bottom: 20px; right: 20px;">
         <p>
 {{--            {{ $session->get('success') }}--}}
             {{ session()->get('success') }}
@@ -89,3 +89,4 @@
     </div>
 @endif
 </body>
+

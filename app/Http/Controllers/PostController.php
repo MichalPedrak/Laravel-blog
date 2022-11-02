@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -25,11 +26,7 @@ class PostController extends Controller
     }
 
 
-    public function create(){
 
-
-        return view('posts.create');
-    }
 
 }
 

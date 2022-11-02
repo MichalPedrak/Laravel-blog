@@ -17,7 +17,7 @@ class MustBeAdministrator
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->username != 'admin') {
+        if(isset(auth()->user()->username) != 'admin') {
             abort(\Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
 
         }
